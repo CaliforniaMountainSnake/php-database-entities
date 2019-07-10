@@ -10,6 +10,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Fixed
 ### Security
 
+## [1.0.1] - 2019-07-10
+### Changed
+- Changed the behavior of EntityConvertUtils::createEntitiesListFromArray. It keeps the original array keys now.
+
+
 ## [1.0.0] - 2018-04-07
 ### Added
 - Extracted classes and utils from the another project.

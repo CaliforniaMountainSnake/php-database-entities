@@ -32,9 +32,9 @@ class EntityConvertUtils
     public function createEntitiesListFromArray(array $_raw_array, string $_entity_classname): array
     {
         $result = [];
-        foreach ($_raw_array as $rawEntity) {
+        foreach ($_raw_array as $rawKey => $rawEntity) {
             /** @var EntityInterface $_entity_classname */
-            $result[] = $_entity_classname::fromArray($rawEntity);
+            $result[$rawKey] = $_entity_classname::fromArray($rawEntity);
         }
 
         return $result;
