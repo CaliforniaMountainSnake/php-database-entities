@@ -10,6 +10,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Fixed
 ### Security
 
+## [1.0.2] - 2019-08-01
+### Added
+- The method BaseEntity::fromJson() was improved.
+### Changed
+- The minimal php version was reduced to 7.1.
+- Updated the Composer dependencies.
+
 ## [1.0.1] - 2019-07-10
 ### Changed
 - Changed the behavior of EntityConvertUtils::createEntitiesListFromArray. It keeps the original array keys now.

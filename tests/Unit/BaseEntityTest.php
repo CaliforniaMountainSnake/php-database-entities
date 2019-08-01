@@ -29,6 +29,17 @@ class BaseEntityTest extends TestCase
         $this->assertEquals($json, $userEntity->toJson());
     }
 
+    /**
+     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
+     */
+    public function testFromToJsonWithKeys(): void
+    {
+        $jsonBase     = \json_encode($this->getUserArray());
+        $jsonWithKeys = \json_encode(['some_key_1' => [0 => ['some_key_3' => $this->getUserArray()]]]);
+        $userEntity   = UserEntity::fromJson($jsonWithKeys, 'some_key_1', 0, 'some_key_3');
+        $this->assertEquals($jsonBase, $userEntity->toJson());
+    }
+
     protected function getUserArray(): array
     {
         return [

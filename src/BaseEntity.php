@@ -61,13 +61,16 @@ abstract class BaseEntity implements EntityInterface
 
     /**
      * @param string $_arr
+     * @param string[] $_array_keys
      * @return EntityInterface|null
      */
-    public static function fromJson(string $_arr): ?EntityInterface
+    public static function fromJson(string $_arr, string ...$_array_keys): ?EntityInterface
     {
-        $array = \json_decode($_arr, true);
+        $decodedArr = \json_decode($_arr, true);
+        $targetArr  = self::getSubArray($decodedArr, ...$_array_keys);
+
         if (\json_last_error() === \JSON_ERROR_NONE) {
-            return static::fromArray($array);
+            return static::fromArray($targetArr);
         }
 
         return null;
@@ -83,7 +86,7 @@ abstract class BaseEntity implements EntityInterface
 
     /**
      * Преобразовать массив сущностей в обычный массив.
-     * @param EntityInterface ...$_entities
+     * @param EntityInterface[] $_entities
      * @return array
      * @TODO: Возможно, стоит заменить на array_walk_recursive().
      */
@@ -121,5 +124,24 @@ abstract class BaseEntity implements EntityInterface
                 $this->propertiesNames[] = $property->getName();
             }
         }
+    }
+
+    /**
+     * @param array $_arr
+     * @param string[] $_keys
+     * @return array
+     */
+    private static function getSubArray(array $_arr, string ...$_keys): array
+    {
+        $result = $_arr;
+        foreach ($_keys as $key) {
+            if (!isset($result[$key])) {
+                throw new \RuntimeException('The key "' . $key . '" does not exists in the array!');
+            }
+
+            $result = $result[$key];
+        }
+
+        return $result;
     }
 }

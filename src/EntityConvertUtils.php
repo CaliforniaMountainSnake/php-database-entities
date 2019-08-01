@@ -63,7 +63,7 @@ class EntityConvertUtils
      *
      * @param callable|null $_callback_get_key
      * @param callable $_callback_get_value
-     * @param EntityInterface ...$_entities
+     * @param EntityInterface[] $_entities
      * @return array
      */
     public function makeArrayWithEntities(
