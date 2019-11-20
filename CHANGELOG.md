@@ -10,6 +10,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Fixed
 ### Security
 
+## [1.0.5] - 2019-11-20
+### Changed
+- The parameters have been returned to EntityInterface::toArray() method.
+
 ## [1.0.4] - 2019-11-20
 ### Fixed
 - Fix of EntityInterface.
