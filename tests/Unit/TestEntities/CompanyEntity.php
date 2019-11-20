@@ -23,27 +23,36 @@ class CompanyEntity extends BaseEntity
     protected $address;
 
     /**
-     * CompanyEntity constructor.
-     * @param int $id
-     * @param string $name
-     * @param string $address
+     * @var string|null
      */
-    public function __construct(int $id, string $name, string $address)
+    protected $description;
+
+    /**
+     * CompanyEntity constructor.
+     *
+     * @param int         $id
+     * @param string      $name
+     * @param string      $address
+     * @param string|null $description
+     */
+    public function __construct(int $id, string $name, string $address, ?string $description)
     {
-        $this->id      = $id;
-        $this->name    = $name;
+        $this->id = $id;
+        $this->name = $name;
         $this->address = $address;
+        $this->description = $description;
     }
 
     /**
      * Create an entity from array.
+     *
      * @param array $_arr Associative array.
      *
      * @return self
      */
     public static function fromArray(array $_arr): EntityInterface
     {
-        return new static($_arr['id'], $_arr['name'], $_arr['address']);
+        return new static($_arr['id'], $_arr['name'], $_arr['address'], $_arr['description']);
     }
 
     /**
@@ -68,5 +77,13 @@ class CompanyEntity extends BaseEntity
     public function getAddress(): string
     {
         return $this->address;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getDescription(): ?string
+    {
+        return $this->description;
     }
 }

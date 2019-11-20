@@ -10,6 +10,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Fixed
 ### Security
 
+## [1.0.3] - 2019-11-20
+### Added
+- The method BaseEntity::toArray() now have the possibility to set $_is_exclude_null parameter. 
+
 ## [1.0.2] - 2019-08-01
 ### Added
 - The method BaseEntity::fromJson() was improved.
