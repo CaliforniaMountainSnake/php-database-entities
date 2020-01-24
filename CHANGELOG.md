@@ -10,6 +10,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Fixed
 ### Security
 
+## [1.0.6] - 2020-01-24
+### Added
+- Added the DateFormats interface contains various types of useful date constants.
+### Changed
+- Composer dependencies have been updated.
+
 ## [1.0.5] - 2019-11-20
 ### Changed
 - The parameters have been returned to EntityInterface::toArray() method.
@@ -38,3 +44,5 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Added
 - Extracted classes and utils from the another project.
 - Wrote a simple first test to check creation and conversion an entity from/to json/array.
+
+[1.0.6]: https://github.com/CaliforniaMountainSnake/php-database-entities/compare/1.0.5...1.0.6

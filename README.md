@@ -10,7 +10,7 @@ Edit your project's `composer.json` file to require `californiamountainsnake/php
     "name": "yourproject/yourproject",
     "type": "project",
     "require": {
-        "php": "^7.3.1",
+        "php": "^7.1",
         "californiamountainsnake/php-database-entities": "*"
     }
 }
