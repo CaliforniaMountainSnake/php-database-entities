@@ -17,6 +17,8 @@ interface DateFormats
     public const MYSQL_MAX_DATE_DATE = '9999-12-31';
     public const MYSQL_MIN_DATETIME_DATE = '1000-01-01 00:00:00';
     public const MYSQL_MAX_DATETIME_DATE = '9999-12-31 23:59:59';
-    public const MYSQL_MIN_TIMESTAMP_DATE = '1970-01-01 00:00:0';
+    public const MYSQL_MIN_TIMESTAMP_DATE = '1970-01-01 00:00:00';
     public const MYSQL_MAX_TIMESTAMP_DATE = '2038-01-19 03:14:07';
+    public const MYSQL_MIN_TIMESTAMP_DATE_INT = 0;
+    public const MYSQL_MAX_TIMESTAMP_DATE_INT = 2147483647;
 }

@@ -10,6 +10,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Fixed
 ### Security
 
+## [1.0.7] - 2021-04-26
+### Added
+- Added some new values in the DateFormats interface.
+
 ## [1.0.6] - 2020-01-24
 ### Added
 - Added the DateFormats interface contains various types of useful date constants.
