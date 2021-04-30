@@ -10,6 +10,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Fixed
 ### Security
 
+## [1.0.8] - 2021-04-30
+### Added
+- Added possibilities to customize casts in the BaseEntity::toArray().
+
 ## [1.0.7] - 2021-04-26
 ### Added
 - Added some new values in the DateFormats interface.

@@ -30,7 +30,7 @@ interface EntityInterface
      * Convert the entity to array.
      *
      * @param string[] $_except_keys     [OPTIONAL] The keys that will be excluded from the generated array.
-     * @param bool     $_is_exclude_null [OPTIONAL] Exclude null values?
+     * @param bool     $_is_exclude_null [OPTIONAL] Exclude null properties?
      *
      * @return array
      */

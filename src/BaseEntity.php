@@ -3,6 +3,9 @@
 namespace CaliforniaMountainSnake\DatabaseEntities;
 
 use MyCLabs\Enum\Enum;
+use ReflectionClass;
+use ReflectionException;
+use RuntimeException;
 
 /**
  * Class represents some entity from the database.
@@ -12,7 +15,7 @@ abstract class BaseEntity implements EntityInterface
     use TimestampUtils;
 
     /**
-     * @var \ReflectionClass
+     * @var ReflectionClass
      */
     private $reflection;
 
@@ -25,7 +28,7 @@ abstract class BaseEntity implements EntityInterface
      * Convert the entity to array.
      *
      * @param string[] $_except_keys     [OPTIONAL] The keys that will be excluded from the generated array.
-     * @param bool     $_is_exclude_null [OPTIONAL] Exclude null values?
+     * @param bool     $_is_exclude_null [OPTIONAL] Exclude null properties?
      *
      * @return array
      */
@@ -36,7 +39,7 @@ abstract class BaseEntity implements EntityInterface
 
         $result = [];
         foreach ($this->propertiesNames as $propertyName) {
-            if (\in_array($propertyName, $_except_keys, true)) {
+            if (in_array($propertyName, $_except_keys, true)) {
                 continue;
             }
 
@@ -45,15 +48,7 @@ abstract class BaseEntity implements EntityInterface
                 continue;
             }
 
-            if ($value instanceof EntityInterface) {
-                $result[$propertyName] = $value->toArray([], $_is_exclude_null);
-            } elseif (\is_array($value)) {
-                $result[$propertyName] = self::convertArrayOfEntitiesToArray($value, $_is_exclude_null);
-            } elseif ($value instanceof Enum) {
-                $result[$propertyName] = (string)$value;
-            } else {
-                $result[$propertyName] = $value;
-            }
+            $result[$propertyName] = $this->castValue($value, $_is_exclude_null);
         }
 
         return $result;
@@ -66,7 +61,7 @@ abstract class BaseEntity implements EntityInterface
      */
     public function toJson(): string
     {
-        return \json_encode($this->toArray());
+        return json_encode($this->toArray());
     }
 
     /**
@@ -79,14 +74,39 @@ abstract class BaseEntity implements EntityInterface
      */
     public static function fromJson(string $_arr, string ...$_array_keys): ?EntityInterface
     {
-        $decodedArr = \json_decode($_arr, true);
+        $decodedArr = json_decode($_arr, true);
         $targetArr = self::getSubArray($decodedArr, ...$_array_keys);
 
-        if (\json_last_error() === \JSON_ERROR_NONE) {
+        if (json_last_error() === JSON_ERROR_NONE) {
             return static::fromArray($targetArr);
         }
 
         return null;
+    }
+
+    /**
+     * Cast the given value.
+     *
+     * @param mixed $value
+     * @param bool  $_is_exclude_null
+     *
+     * @return mixed
+     */
+    protected function castValue($value, bool $_is_exclude_null = false)
+    {
+        if (is_array($value)) {
+            $newValue = [];
+            foreach ($value as $key => $subItem) {
+                $newValue[$key] = $this->castValue($subItem, $_is_exclude_null);
+            }
+            return $newValue;
+        } elseif ($value instanceof EntityInterface) {
+            return $value->toArray([], $_is_exclude_null);
+        } elseif ($value instanceof Enum) {
+            return (string)$value;
+        }
+
+        return $value;
     }
 
     /**
@@ -95,26 +115,6 @@ abstract class BaseEntity implements EntityInterface
     public function __debugInfo()
     {
         return $this->toArray();
-    }
-
-    /**
-     * Convert array of EntityInterface to the usual array.
-     *
-     * @param EntityInterface[] $_array_of_entities
-     * @param bool              $_is_exclude_null Exclude null values?
-     *
-     * @return array
-     * @TODO: Возможно, стоит заменить на array_walk_recursive().
-     */
-    private static function convertArrayOfEntitiesToArray(
-        array $_array_of_entities,
-        bool $_is_exclude_null = false
-    ): array {
-        $result = [];
-        foreach ($_array_of_entities as $entity) {
-            $result[] = $entity->toArray([], $_is_exclude_null);
-        }
-        return $result;
     }
 
     /**
@@ -127,9 +127,9 @@ abstract class BaseEntity implements EntityInterface
         }
 
         try {
-            $this->reflection = new \ReflectionClass(static::class);
-        } catch (\ReflectionException $e) {
-            throw new \RuntimeException($e->getMessage(), $e->getCode(), $e);
+            $this->reflection = new ReflectionClass(static::class);
+        } catch (ReflectionException $e) {
+            throw new RuntimeException($e->getMessage(), $e->getCode(), $e);
         }
     }
 
@@ -161,7 +161,7 @@ abstract class BaseEntity implements EntityInterface
         $result = $_arr;
         foreach ($_keys as $key) {
             if (!isset($result[$key])) {
-                throw new \RuntimeException('The key "' . $key . '" does not exists in the array!');
+                throw new RuntimeException('The key "' . $key . '" does not exists in the array!');
             }
 
             $result = $result[$key];

@@ -63,6 +63,7 @@ class UserEntity extends BaseEntity
     public static function fromArray(array $_arr): EntityInterface
     {
         // Make Relations Entities
+        /** @var CompanyEntity[]|null[] $relatedEntities */
         $relatedEntities = self::makeRelatedEntitiesFromArray([
             'company' => CompanyEntity::class,
         ], $_arr);

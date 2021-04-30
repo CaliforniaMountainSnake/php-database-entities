@@ -24,7 +24,7 @@ class BaseEntityTest extends TestCase
      */
     public function testFromToJson(): void
     {
-        $json = \json_encode($this->getUserArray());
+        $json = json_encode($this->getUserArray());
         $userEntity = UserEntity::fromJson($json);
         $this->assertEquals($json, $userEntity->toJson());
     }
@@ -34,8 +34,8 @@ class BaseEntityTest extends TestCase
      */
     public function testFromToJsonWithKeys(): void
     {
-        $jsonBase = \json_encode($this->getUserArray());
-        $jsonWithKeys = \json_encode(['some_key_1' => [0 => ['some_key_3' => $this->getUserArray()]]]);
+        $jsonBase = json_encode($this->getUserArray());
+        $jsonWithKeys = json_encode(['some_key_1' => [0 => ['some_key_3' => $this->getUserArray()]]]);
         $userEntity = UserEntity::fromJson($jsonWithKeys, 'some_key_1', 0, 'some_key_3');
         $this->assertEquals($jsonBase, $userEntity->toJson());
     }
@@ -55,6 +55,7 @@ class BaseEntityTest extends TestCase
                 'name' => 'Some Company',
                 'address' => 'this is some address',
                 'description' => null,
+                'foundation_date' => '2021-01-07 13:53:51',
             ],
         ];
     }
