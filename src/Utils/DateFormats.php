@@ -4,6 +4,8 @@ namespace CaliforniaMountainSnake\DatabaseEntities\Utils;
 
 /**
  * Interface contains various types of useful date constants.
+ *
+ * @see https://www.php.net/manual/ru/datetime.format.php
  */
 interface DateFormats
 {
@@ -21,4 +23,6 @@ interface DateFormats
     public const MYSQL_MAX_TIMESTAMP_DATE = '2038-01-19 03:14:07';
     public const MYSQL_MIN_TIMESTAMP_DATE_INT = 0;
     public const MYSQL_MAX_TIMESTAMP_DATE_INT = 2147483647;
+
+    public const UNIX_TIMESTAMP = 'U';
 }
